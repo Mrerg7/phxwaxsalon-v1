@@ -1,0 +1,6 @@
+# Cloudflare Workers Static Assets — pure static, assets-only
+name = "phxwax-salon"
+compatibility_date = "2025-07-01"
+
+[assets]
+directory = "./dist"
