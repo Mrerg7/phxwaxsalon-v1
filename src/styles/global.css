@@ -30,11 +30,11 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-brand-700 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600;
+    @apply inline-flex min-h-11 items-center justify-center rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-brand-700 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full border border-accent-300 bg-white px-6 py-3 text-sm font-semibold text-accent-800 shadow-sm transition-all duration-200 hover:bg-accent-50 hover:border-accent-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500;
+    @apply inline-flex min-h-11 items-center justify-center rounded-full border border-accent-300 bg-white px-6 py-3 text-sm font-semibold text-accent-800 shadow-sm transition-all duration-200 hover:bg-accent-50 hover:border-accent-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500;
   }
 
   .card {
