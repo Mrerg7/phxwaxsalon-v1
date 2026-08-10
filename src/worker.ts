@@ -12,6 +12,19 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
+    // Serve /index.html as 200 without redirect so GSC does not flag "Page with redirect".
+    // Content matches the homepage; X-Robots-Tag keeps the duplicate URL out of the index.
+    if (url.pathname === '/index.html') {
+      const homeRes = await env.ASSETS.fetch(new Request(new URL('/', url), request));
+      const headers = new Headers(homeRes.headers);
+      headers.set('X-Robots-Tag', 'noindex, follow');
+      return new Response(homeRes.body, {
+        status: homeRes.status,
+        statusText: homeRes.statusText,
+        headers,
+      });
+    }
+
     return env.ASSETS.fetch(request);
   },
 };
