@@ -9,13 +9,14 @@ interface Props {
 }
 
 const {
-  title = 'PHX Wax Salon | Premium Brazilian Wax in Phoenix',
-  description = 'Discover professional Brazilian wax services in Phoenix. Expert techniques, hard wax for sensitive areas, and lasting smooth results for 3–4 weeks.',
-  ogImage = 'https://phxwax.salon/og-image.png',
+  title = 'phxwax.salon | Premium Domain for Sale | PHX Wax Salon',
+  description = 'phxwax.salon for sale — premium Phoenix Brazilian wax domain. Exact-match local intent for salon, spa & beauty brands. Make an offer via escrow-protected transfer. Contact sales@desertrich.com.',
+  ogImage = 'https://phxwax.salon/og-image.svg',
   canonical = 'https://phxwax.salon/',
 } = Astro.props;
 
 const siteName = 'PHX Wax Salon';
+const dateModified = '2026-10-03';
 ---
 
 <!doctype html>
@@ -31,6 +32,27 @@ const siteName = 'PHX Wax Salon';
     <link rel="canonical" href={canonical} />
     <link rel="sitemap" href="/sitemap-index.xml" type="application/xml" />
 
+    <!-- Performance: preconnect + non-blocking fonts (replaces CSS @import) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+      />
+    </noscript>
+
     <!-- Google Search Console -->
     <meta name="google-site-verification" content="in4mLA3h4apCxLefgAYLIBZEtzUyO5MS11oWFyVbxh0" />
 
@@ -42,6 +64,7 @@ const siteName = 'PHX Wax Salon';
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="phxwax.salon — Premium Domain for Sale" />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content="en_US" />
 
@@ -51,45 +74,99 @@ const siteName = 'PHX Wax Salon';
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="phxwax.salon — Premium Domain for Sale" />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="theme-color" content="#c97d64" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#b5624c" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#22262f" media="(prefers-color-scheme: dark)" />
 
-    <!-- Structured Data -->
+    <!-- Prevent dark-mode FOUC (class strategy, localStorage, free-plan friendly) -->
+    <script is:inline>
+      try {
+        const t = localStorage.getItem('phx-theme');
+        if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    </script>
+
+    <!-- Structured Data: Organization -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://phxwax.salon/#org",
+      "name": "PHX Wax Salon",
+      "url": "https://phxwax.salon/",
+      "logo": "https://phxwax.salon/favicon.svg",
+      "email": "sales@desertrich.com",
+      "areaServed": { "@type": "City", "name": "Phoenix, Arizona" }
+    })} />
+
+    <!-- Structured Data: WebSite -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
+      "@id": "https://phxwax.salon/#website",
       "name": siteName,
-      "url": "https://phxwax.salon",
+      "url": "https://phxwax.salon/",
       "description": description,
-      "publisher": {
-        "@type": "Organization",
-        "name": "PHX Wax Salon",
-        "url": "https://phxwax.salon"
-      }
+      "publisher": { "@id": "https://phxwax.salon/#org" },
+      "inLanguage": "en-US"
     })} />
 
+    <!-- Structured Data: WebPage + Breadcrumb -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebPage",
+      "@id": canonical + "#webpage",
       "name": title,
       "description": description,
       "url": canonical,
-      "isPartOf": {
-        "@type": "WebSite",
-        "name": siteName,
-        "url": "https://phxwax.salon"
-      },
+      "isPartOf": { "@id": "https://phxwax.salon/#website" },
       "about": {
         "@type": "Thing",
         "name": "Brazilian Wax Salon Phoenix",
         "description": "Professional Brazilian wax services using hard wax techniques for sensitive areas, delivering smooth skin for 3 to 4 weeks."
       },
       "datePublished": "2026-07-29",
-      "dateModified": "2026-07-29",
+      "dateModified": dateModified,
       "inLanguage": "en-US"
     })} />
 
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://phxwax.salon/" },
+        { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://phxwax.salon/#services" },
+        { "@type": "ListItem", "position": 3, "name": "FAQ", "item": "https://phxwax.salon/#faq" },
+        { "@type": "ListItem", "position": 4, "name": "Acquire Domain", "item": "https://phxwax.salon/#acquisition" }
+      ]
+    })} />
+
+    <!-- Structured Data: Product (domain name for sale) — mirrors visible acquisition section -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "@id": "https://phxwax.salon/#domain-product",
+      "name": "phxwax.salon — Premium Domain for Sale",
+      "description": "Premium exact-match domain for a Phoenix Brazilian wax salon, spa, or beauty brand. Escrow-protected transfer. Serious inquiries: sales@desertrich.com.",
+      "url": "https://phxwax.salon/#acquisition",
+      "brand": { "@type": "Brand", "name": "PHX Wax Salon" },
+      "category": "Domain Name",
+      "image": ogImage,
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://phxwax.salon/#acquisition",
+        "seller": { "@id": "https://phxwax.salon/#org" }
+      }
+    })} />
+
+    <!-- Structured Data: FAQPage — MUST match visible #faq content -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -115,13 +192,44 @@ const siteName = 'PHX Wax Salon';
           "name": "Why choose hard wax in Phoenix?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Hard wax is ideal for the bikini line and underarms. It grips the hair shaft while releasing cleanly from the skin, reducing irritation—especially valuable in the Arizona climate."
+            "text": "Hard wax is ideal for the bikini line and underarms. It grips the hair shaft while releasing cleanly from the skin, reducing irritation — especially valuable in the Arizona climate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is phxwax.salon available for purchase?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. phxwax.salon is available for acquisition via private escrow-protected transfer. Email sales@desertrich.com with your offer. All discussions are confidential with a 1–2 business day response."
           }
         }
       ]
     })} />
   </head>
   <body class="min-h-screen flex flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-white focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:shadow-lg"
+    >
+      Skip to content
+    </a>
     <slot />
+
+    <!-- Cloudflare Web Analytics (free plan): paste token below to activate, no build change needed -->
+    <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "REPLACE_WITH_TOKEN"}'></script> -->
+    <script is:inline data-cf-conversion>
+      // Lightweight conversion tracking hook (free-plan friendly, no PII).
+      // Emits CustomEvent('phx_cta', {detail:{cta}}) consumed by analytics if present.
+      document.addEventListener('click', function (e) {
+        var el = e.target && e.target.closest ? e.target.closest('[data-cta]') : null;
+        if (!el) return;
+        var name = el.getAttribute('data-cta') || 'cta';
+        try {
+          document.dispatchEvent(new CustomEvent('phx_cta', { detail: { cta: name, href: el.getAttribute('href') } }));
+          if (window.plausible) window.plausible('CTA:' + name);
+          if (window.gtag) window.gtag('event', 'cta_click', { cta_name: name });
+        } catch (err) {}
+      });
+    </script>
   </body>
 </html>

@@ -1,22 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Fonts load via <link> in Layout.astro (non-blocking, display=swap).
+   System fallbacks keep FCP <2s even if Google Fonts is slow. */
 
 @layer base {
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Prevent horizontal scroll on small screens (mobile audit) */
+    overflow-x: clip;
   }
 
   body {
     @apply bg-brand-50 text-accent-900 font-sans antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  .dark body {
+    @apply bg-accent-950 text-accent-100;
   }
 
   ::selection {
     @apply bg-brand-200 text-brand-900;
+  }
+
+  /* Readable without zoom: 16px minimum */
+  p, li {
+    @apply text-base leading-relaxed;
   }
 }
 
@@ -29,16 +43,49 @@
     @apply py-16 sm:py-20 lg:py-24;
   }
 
+  /* 48px minimum tap targets (mobile audit: was 44px) */
   .btn-primary {
-    @apply inline-flex min-h-11 items-center justify-center rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-brand-700 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600;
+    @apply inline-flex min-h-12 items-center justify-center rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-brand-700 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600 active:scale-[0.99];
   }
 
   .btn-secondary {
-    @apply inline-flex min-h-11 items-center justify-center rounded-full border border-accent-300 bg-white px-6 py-3 text-sm font-semibold text-accent-800 shadow-sm transition-all duration-200 hover:bg-accent-50 hover:border-accent-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500;
+    @apply inline-flex min-h-12 items-center justify-center rounded-full border border-accent-300 bg-white px-6 py-3 text-sm font-semibold text-accent-800 shadow-sm transition-all duration-200 hover:bg-accent-50 hover:border-accent-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500 active:scale-[0.99];
+  }
+
+  .dark .btn-secondary {
+    @apply border-accent-700 bg-accent-900 text-accent-100 hover:bg-accent-800;
   }
 
   .card {
     @apply rounded-2xl border border-brand-100 bg-white p-6 shadow-sm transition-shadow duration-300 hover:shadow-md;
+  }
+
+  .dark .card {
+    @apply border-accent-800 bg-accent-900 shadow-none;
+  }
+
+  /* Smooth scroll-triggered fade-ins (respects reduced motion) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 

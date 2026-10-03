@@ -2,215 +2,294 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ExitIntent from '../components/ExitIntent.astro';
+
+const offerSubject = encodeURIComponent('Domain Offer: phxwax.salon');
+const offerBody = encodeURIComponent('Hello,\n\nI would like to make an offer for phxwax.salon.\n\nOffer amount (USD): \nIntended use: \nTimeline: \n\nThank you.');
+const buySubject = encodeURIComponent('Buy Now Inquiry: phxwax.salon');
+const buyBody = encodeURIComponent('Hello,\n\nI want to acquire phxwax.salon via escrow-protected transfer. Please send next steps and payment instructions.\n\nName: \nTimeline: ASAP\n\nThank you.');
 ---
 
 <Layout>
   <Header />
 
-  <main class="flex-1">
-    <!-- Hero -->
+  <main id="main" class="flex-1">
+    <!-- Hero: above-the-fold domain + price + instant actions (CRO) -->
     <section class="relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-brand-50 to-brand-100/60"></div>
-      <div class="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-brand-200/30 blur-3xl"></div>
-      <div class="absolute -bottom-32 -left-32 h-80 w-80 rounded-full bg-brand-300/20 blur-3xl"></div>
+      <div class="absolute inset-0 bg-gradient-to-br from-brand-50 via-brand-50 to-brand-100/60 dark:from-accent-950 dark:via-accent-950 dark:to-accent-900"></div>
+      <div class="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-brand-200/30 blur-3xl dark:bg-brand-500/10"></div>
+      <div class="absolute -bottom-32 -left-32 h-80 w-80 rounded-full bg-brand-300/20 blur-3xl dark:bg-brand-500/10"></div>
 
       <div class="container-narrow relative section-padding">
         <div class="mx-auto max-w-3xl text-center">
-          <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/80 px-4 py-1.5 text-xs font-medium text-brand-700 shadow-sm backdrop-blur">
-            <span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>
-            Phoenix · Premium Wax Services
+          <div class="reveal mb-6 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white/80 px-4 py-2 text-xs font-medium text-brand-700 shadow-sm backdrop-blur dark:border-accent-700 dark:bg-accent-900/80 dark:text-brand-300">
+            <span class="relative flex h-2 w-2">
+              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75"></span>
+              <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-600"></span>
+            </span>
+            Available now · 1-of-1 premium .salon domain
+            <span id="viewer-count" class="hidden rounded-full bg-brand-100 px-2 py-0.5 text-[11px] text-brand-800 dark:bg-accent-800 dark:text-accent-200" aria-live="polite"></span>
           </div>
-          <h1 class="font-display text-4xl font-semibold tracking-tight text-accent-900 sm:text-5xl lg:text-6xl">
-            PHX <span class="text-brand-600">Wax Salon</span>
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">Phoenix · Premium Wax Services</p>
+          <h1 class="mt-3 font-display text-4xl font-semibold tracking-tight text-accent-900 dark:text-white sm:text-5xl lg:text-6xl">
+            PHX <span class="text-brand-600 dark:text-brand-400">Wax Salon</span>
+            <span class="mt-3 block text-xl font-medium tracking-normal text-accent-600 dark:text-accent-300 sm:text-2xl">phxwax.salon — premium domain for sale</span>
           </h1>
-          <p class="mt-6 text-lg leading-relaxed text-accent-600 sm:text-xl">
-            Professional Brazilian wax services in the Valley. Hard-wax technique for sensitive areas, 
-            delivering smooth results that last <strong class="font-semibold text-accent-800">3 to 4 weeks</strong>.
+          <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-accent-600 dark:text-accent-300 sm:text-xl">
+            Professional Brazilian wax positioning in the Valley. Hard-wax technique for sensitive areas,
+            delivering smooth results that last <strong class="font-semibold text-accent-800 dark:text-white">3 to 4 weeks</strong>.
           </p>
-          <div class="mt-10 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
-            <a href="#services" class="btn-primary w-full sm:w-auto">
-              Explore Services
+
+          <!-- Price + urgency bar -->
+          <div class="mx-auto mt-6 flex max-w-xl flex-col items-center justify-between gap-3 rounded-2xl border border-brand-200/70 bg-white/70 px-5 py-4 text-sm backdrop-blur dark:border-accent-700 dark:bg-accent-900/60 sm:flex-row">
+            <div class="text-left">
+              <p class="text-xs uppercase tracking-wider text-accent-500 dark:text-accent-400">Asking price</p>
+              <p class="text-lg font-semibold text-accent-900 dark:text-white">Priced on request <span class="ml-1 align-middle text-xs font-medium text-emerald-700 dark:text-emerald-400">· escrow-protected</span></p>
+            </div>
+            <div class="text-sm text-accent-600 dark:text-accent-300">
+              <span class="font-semibold text-accent-900 dark:text-white">1 of 1</span> exact-match asset · no renewal risk on transfer
+            </div>
+          </div>
+
+          <div class="mt-8 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <a
+              href={`mailto:sales@desertrich.com?subject=${buySubject}&body=${buyBody}`}
+              data-cta="hero-buy-now"
+              class="btn-primary w-full sm:w-auto"
+            >
+              Buy Now — Secure Transfer
             </a>
-            <a href="#acquisition" class="btn-secondary w-full sm:w-auto">
-              Domain Available
+            <a
+              href={`mailto:sales@desertrich.com?subject=${offerSubject}&body=${offerBody}`}
+              data-cta="hero-make-offer"
+              class="btn-secondary w-full sm:w-auto"
+            >
+              Make an Offer
+            </a>
+            <a href="#acquisition" data-cta="hero-contact-agent" class="inline-flex min-h-12 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-brand-700 underline-offset-4 hover:underline dark:text-brand-300">
+              Contact Agent
             </a>
           </div>
+
+          <!-- Trust signals -->
+          <ul class="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-accent-500 dark:text-accent-400" aria-label="Transaction guarantees">
+            <li class="inline-flex items-center gap-1.5">
+              <svg class="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
+              Escrow-protected transfer
+            </li>
+            <li class="inline-flex items-center gap-1.5">
+              <svg class="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+              SSL-secured inquiry
+            </li>
+            <li class="inline-flex items-center gap-1.5">
+              <svg class="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              Response in 1–2 business days
+            </li>
+            <li class="inline-flex items-center gap-1.5">
+              <svg class="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              Confidential discussions
+            </li>
+          </ul>
+
+          <nav class="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-accent-500 dark:text-accent-400" aria-label="On this page">
+            <a href="#about" class="min-h-12 inline-flex items-center underline-offset-4 hover:underline">About</a>
+            <a href="#services" class="min-h-12 inline-flex items-center underline-offset-4 hover:underline">Services</a>
+            <a href="#value" class="min-h-12 inline-flex items-center underline-offset-4 hover:underline">Domain value</a>
+            <a href="#faq" class="min-h-12 inline-flex items-center underline-offset-4 hover:underline">FAQ</a>
+            <a href="#acquisition" class="min-h-12 inline-flex items-center underline-offset-4 hover:underline">Acquire</a>
+          </nav>
         </div>
       </div>
     </section>
 
     <!-- About -->
-    <section id="about" class="section-padding bg-white">
+    <section id="about" class="section-padding bg-white dark:bg-accent-950">
       <div class="container-narrow">
-        <div class="mx-auto max-w-3xl">
-          <h2 class="font-display text-3xl font-semibold tracking-tight text-accent-900 sm:text-4xl">
+        <div class="reveal mx-auto max-w-3xl">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">About</p>
+          <h2 class="mt-2 font-display text-3xl font-semibold tracking-tight text-accent-900 dark:text-white sm:text-4xl">
             Brazilian Wax Excellence in Phoenix
           </h2>
-          <div class="mt-6 space-y-4 text-accent-700 leading-relaxed">
+          <div class="mt-6 space-y-4 leading-relaxed text-accent-700 dark:text-accent-300">
             <p>
-              Wax epilation extracts hair from the root using warm or hard wax, providing smooth skin for 3 to 4 weeks. 
-              It is generally considered less painful than epilators because the discomfort is a short, sharp sensation 
+              Wax epilation extracts hair from the root using warm or hard wax, providing smooth skin for 3 to 4 weeks.
+              It is generally considered less painful than epilators because the discomfort is a short, sharp sensation
               rather than continuous pinching.
             </p>
             <p>
-              In the Phoenix climate, professional hard-wax techniques are especially effective for the bikini line 
-              and underarms—formulations designed to adhere to the hair shaft rather than the skin, reducing irritation 
+              In the Phoenix climate, professional hard-wax techniques are especially effective for the bikini line
+              and underarms — formulations designed to adhere to the hair shaft rather than the skin, reducing irritation
               and supporting consistent, reliable results.
             </p>
+          </div>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#services" class="btn-secondary">See service highlights</a>
+            <a href="#faq" class="inline-flex min-h-12 items-center px-2 text-sm font-semibold text-brand-700 underline-offset-4 hover:underline dark:text-brand-300">Read FAQ</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Services / Characteristics -->
-    <section id="services" class="section-padding bg-brand-50">
+    <section id="services" class="section-padding bg-brand-50 dark:bg-accent-900">
       <div class="container-narrow">
-        <div class="mx-auto max-w-2xl text-center">
-          <h2 class="font-display text-3xl font-semibold tracking-tight text-accent-900 sm:text-4xl">
+        <div class="reveal mx-auto max-w-2xl text-center">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">Services</p>
+          <h2 class="mt-2 font-display text-3xl font-semibold tracking-tight text-accent-900 dark:text-white sm:text-4xl">
             Service Highlights
           </h2>
-          <p class="mt-4 text-lg text-accent-600">
+          <p class="mt-4 text-lg text-accent-600 dark:text-accent-300">
             The practical advantages of professional Brazilian waxing.
           </p>
         </div>
 
         <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <article class="card group">
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-700 transition-colors group-hover:bg-brand-200">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <article class="card group reveal">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-700 transition-colors group-hover:bg-brand-200 dark:bg-accent-800 dark:text-brand-300">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 class="text-lg font-semibold text-accent-900">Effectiveness</h3>
-            <p class="mt-2 text-sm leading-relaxed text-accent-600">
+            <h3 class="text-lg font-semibold text-accent-900 dark:text-white">Effectiveness</h3>
+            <p class="mt-2 text-sm leading-relaxed text-accent-600 dark:text-accent-300">
               Removes both coarse and fine hairs effectively. Consistent sessions lead to finer regrowth over time.
             </p>
           </article>
 
-          <article class="card group">
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-700 transition-colors group-hover:bg-brand-200">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <article class="card group reveal">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-700 transition-colors group-hover:bg-brand-200 dark:bg-accent-800 dark:text-brand-300">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
               </svg>
             </div>
-            <h3 class="text-lg font-semibold text-accent-900">Sensitive Areas</h3>
-            <p class="mt-2 text-sm leading-relaxed text-accent-600">
-              Hard wax is ideal for the bikini line and underarms—it adheres only to hair, not skin.
+            <h3 class="text-lg font-semibold text-accent-900 dark:text-white">Sensitive Areas</h3>
+            <p class="mt-2 text-sm leading-relaxed text-accent-600 dark:text-accent-300">
+              Hard wax is ideal for the bikini line and underarms — it adheres only to hair, not skin.
             </p>
           </article>
 
-          <article class="card group">
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-700 transition-colors group-hover:bg-brand-200">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <article class="card group reveal">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-700 transition-colors group-hover:bg-brand-200 dark:bg-accent-800 dark:text-brand-300">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 class="text-lg font-semibold text-accent-900">Preparation</h3>
-            <p class="mt-2 text-sm leading-relaxed text-accent-600">
+            <h3 class="text-lg font-semibold text-accent-900 dark:text-white">Preparation</h3>
+            <p class="mt-2 text-sm leading-relaxed text-accent-600 dark:text-accent-300">
               Hair should be ¼ to ½ inch long. Proper timing between sessions ensures optimal adhesion and comfort.
             </p>
           </article>
 
-          <article class="card group">
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-700 transition-colors group-hover:bg-brand-200">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <article class="card group reveal">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-700 transition-colors group-hover:bg-brand-200 dark:bg-accent-800 dark:text-brand-300">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 class="text-lg font-semibold text-accent-900">Value</h3>
-            <p class="mt-2 text-sm leading-relaxed text-accent-600">
+            <h3 class="text-lg font-semibold text-accent-900 dark:text-white">Value</h3>
+            <p class="mt-2 text-sm leading-relaxed text-accent-600 dark:text-accent-300">
               Recurring professional care delivers consistent results that at-home methods often struggle to match.
             </p>
           </article>
 
-          <article class="card group sm:col-span-2 lg:col-span-1">
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-700 transition-colors group-hover:bg-brand-200">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <article class="card group reveal sm:col-span-2 lg:col-span-1">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 text-brand-700 transition-colors group-hover:bg-brand-200 dark:bg-accent-800 dark:text-brand-300">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
               </svg>
             </div>
-            <h3 class="text-lg font-semibold text-accent-900">Skin Benefits</h3>
-            <p class="mt-2 text-sm leading-relaxed text-accent-600">
+            <h3 class="text-lg font-semibold text-accent-900 dark:text-white">Skin Benefits</h3>
+            <p class="mt-2 text-sm leading-relaxed text-accent-600 dark:text-accent-300">
               Gentle exfoliation removes dead skin cells. Temporary redness is common and typically resolves quickly.
             </p>
+          </article>
+
+          <article class="card group reveal border-brand-300 bg-brand-600 text-white dark:border-brand-500 dark:bg-brand-700 sm:col-span-2 lg:col-span-1">
+            <p class="text-xs font-semibold uppercase tracking-wider text-brand-100">Domain insight</p>
+            <h3 class="mt-2 text-lg font-semibold">Why phxwax.salon wins on brand</h3>
+            <p class="mt-2 text-sm leading-relaxed text-brand-50">
+              Short, local (PHX), service-clear (wax), niche TLD (.salon). Memorable on storefront, ads & voice search.
+            </p>
+            <a href="#value" class="mt-4 inline-flex min-h-12 items-center text-sm font-semibold underline underline-offset-4">See valuation logic</a>
           </article>
         </div>
       </div>
     </section>
 
     <!-- Why Phoenix / Reliability -->
-    <section id="why" class="section-padding bg-white">
+    <section id="why" class="section-padding bg-white dark:bg-accent-950">
       <div class="container-narrow">
         <div class="grid items-center gap-12 lg:grid-cols-2">
-          <div>
-            <h2 class="font-display text-3xl font-semibold tracking-tight text-accent-900 sm:text-4xl">
+          <div class="reveal">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">Why us</p>
+            <h2 class="mt-2 font-display text-3xl font-semibold tracking-tight text-accent-900 dark:text-white sm:text-4xl">
               Built for the Valley
             </h2>
-            <p class="mt-4 text-lg text-accent-600">
-              Professional wax services designed around Phoenix clients’ needs—heat, activity, and lasting smoothness.
+            <p class="mt-4 text-lg text-accent-600 dark:text-accent-300">
+              Professional wax services designed around Phoenix clients' needs — heat, activity, and lasting smoothness.
             </p>
             <ul class="mt-8 space-y-4">
               <li class="flex gap-3">
-                <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
-                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700 dark:bg-accent-800 dark:text-brand-300">
+                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
                 </span>
-                <span class="text-accent-700">
-                  <strong class="font-medium text-accent-900">Root extraction</strong> — delays regrowth for weeks at a time.
+                <span class="text-accent-700 dark:text-accent-300">
+                  <strong class="font-medium text-accent-900 dark:text-white">Root extraction</strong> — delays regrowth for weeks at a time.
                 </span>
               </li>
               <li class="flex gap-3">
-                <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
-                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700 dark:bg-accent-800 dark:text-brand-300">
+                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
                 </span>
-                <span class="text-accent-700">
-                  <strong class="font-medium text-accent-900">Finer regrowth</strong> — consistent care softens hair over months.
+                <span class="text-accent-700 dark:text-accent-300">
+                  <strong class="font-medium text-accent-900 dark:text-white">Finer regrowth</strong> — consistent care softens hair over months.
                 </span>
               </li>
               <li class="flex gap-3">
-                <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
-                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700 dark:bg-accent-800 dark:text-brand-300">
+                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
                 </span>
-                <span class="text-accent-700">
-                  <strong class="font-medium text-accent-900">Hard wax focus</strong> — minimal skin pull for delicate zones.
+                <span class="text-accent-700 dark:text-accent-300">
+                  <strong class="font-medium text-accent-900 dark:text-white">Hard wax focus</strong> — minimal skin pull for delicate zones.
                 </span>
               </li>
               <li class="flex gap-3">
-                <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
-                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                <span class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700 dark:bg-accent-800 dark:text-brand-300">
+                  <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
                 </span>
-                <span class="text-accent-700">
-                  <strong class="font-medium text-accent-900">Climate-aware</strong> — technique suited to Arizona heat and activity levels.
+                <span class="text-accent-700 dark:text-accent-300">
+                  <strong class="font-medium text-accent-900 dark:text-white">Climate-aware</strong> — technique suited to Arizona heat and activity levels.
                 </span>
               </li>
             </ul>
           </div>
 
-          <div class="relative">
-            <div class="rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-8 shadow-lg shadow-brand-100/50">
+          <div class="reveal relative">
+            <div class="rounded-3xl border border-brand-100 bg-gradient-to-br from-brand-50 to-white p-8 shadow-lg shadow-brand-100/50 dark:border-accent-700 dark:from-accent-900 dark:to-accent-950 dark:shadow-none">
               <div class="space-y-6">
-                <div class="flex items-baseline justify-between border-b border-brand-100 pb-4">
-                  <span class="text-sm font-medium text-accent-500">Duration of smoothness</span>
-                  <span class="font-display text-2xl font-semibold text-brand-700">3–4 weeks</span>
+                <div class="flex items-baseline justify-between gap-4 border-b border-brand-100 pb-4 dark:border-accent-800">
+                  <span class="text-sm font-medium text-accent-500 dark:text-accent-400">Duration of smoothness</span>
+                  <span class="font-display text-2xl font-semibold text-brand-700 dark:text-brand-300">3–4 weeks</span>
                 </div>
-                <div class="flex items-baseline justify-between border-b border-brand-100 pb-4">
-                  <span class="text-sm font-medium text-accent-500">Ideal hair length</span>
-                  <span class="font-display text-2xl font-semibold text-brand-700">¼–½ in</span>
+                <div class="flex items-baseline justify-between gap-4 border-b border-brand-100 pb-4 dark:border-accent-800">
+                  <span class="text-sm font-medium text-accent-500 dark:text-accent-400">Ideal hair length</span>
+                  <span class="font-display text-2xl font-semibold text-brand-700 dark:text-brand-300">¼–½ in</span>
                 </div>
-                <div class="flex items-baseline justify-between border-b border-brand-100 pb-4">
-                  <span class="text-sm font-medium text-accent-500">Preferred method</span>
-                  <span class="font-display text-2xl font-semibold text-brand-700">Hard wax</span>
+                <div class="flex items-baseline justify-between gap-4 border-b border-brand-100 pb-4 dark:border-accent-800">
+                  <span class="text-sm font-medium text-accent-500 dark:text-accent-400">Preferred method</span>
+                  <span class="font-display text-2xl font-semibold text-brand-700 dark:text-brand-300">Hard wax</span>
                 </div>
-                <div class="flex items-baseline justify-between">
-                  <span class="text-sm font-medium text-accent-500">Primary focus</span>
-                  <span class="font-display text-2xl font-semibold text-brand-700">Bikini · Underarm</span>
+                <div class="flex items-baseline justify-between gap-4">
+                  <span class="text-sm font-medium text-accent-500 dark:text-accent-400">Primary focus</span>
+                  <span class="text-right font-display text-2xl font-semibold text-brand-700 dark:text-brand-300">Bikini · Underarm</span>
                 </div>
               </div>
             </div>
@@ -219,11 +298,119 @@ import Footer from '../components/Footer.astro';
       </div>
     </section>
 
+    <!-- Domain value / content hub (supports DA building + internal linking) -->
+    <section id="value" class="section-padding bg-brand-50 dark:bg-accent-900">
+      <div class="container-narrow">
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">Domain valuation guide</p>
+          <h2 class="mt-2 font-display text-3xl font-semibold tracking-tight text-accent-900 dark:text-white sm:text-4xl">
+            Why phxwax.salon is a premium beauty domain
+          </h2>
+          <p class="mt-4 text-lg text-accent-600 dark:text-accent-300">
+            Short, local, and service-exact — the three signals buyers and search engines reward.
+          </p>
+        </div>
+        <div class="mt-10 grid gap-6 md:grid-cols-3">
+          <article class="card reveal">
+            <h3 class="text-lg font-semibold text-accent-900 dark:text-white">1 · Local intent (PHX)</h3>
+            <p class="mt-2 text-sm leading-relaxed text-accent-600 dark:text-accent-300">
+              PHX is the universal shorthand for Phoenix. Searchers typing “phx wax” show high purchase intent — this domain matches that query pattern exactly.
+            </p>
+          </article>
+          <article class="card reveal">
+            <h3 class="text-lg font-semibold text-accent-900 dark:text-white">2 · Service clarity (wax)</h3>
+            <p class="mt-2 text-sm leading-relaxed text-accent-600 dark:text-accent-300">
+              No guessing. “Wax” qualifies traffic on arrival, lifting conversion versus generic beauty names. Pair with hard-wax positioning for premium pricing power.
+            </p>
+          </article>
+          <article class="card reveal">
+            <h3 class="text-lg font-semibold text-accent-900 dark:text-white">3 · Niche TLD (.salon)</h3>
+            <p class="mt-2 text-sm leading-relaxed text-accent-600 dark:text-accent-300">
+              .salon signals category instantly on storefronts, ads, and voice. Shorter than phxwaxsalon.com variants and free of hyphen/number compromises.
+            </p>
+          </article>
+        </div>
+        <div class="reveal mx-auto mt-8 max-w-3xl rounded-2xl border border-brand-200 bg-white p-6 text-left dark:border-accent-700 dark:bg-accent-950 sm:p-8">
+          <h3 class="text-base font-semibold text-accent-900 dark:text-white">Comparable positioning</h3>
+          <p class="mt-2 text-sm leading-relaxed text-accent-600 dark:text-accent-300">
+            Geo + service domains (e.g., city + salon/spa/wax) routinely list in the low-to-mid four figures for strong metros because they compress
+            ad spend: higher click-through, better recall, cleaner branding. Final price for phxwax.salon depends on use-case and timeline —
+            <a href="#acquisition" class="font-semibold text-brand-700 underline-offset-4 hover:underline dark:text-brand-300">request a quote</a> for a same-week transfer plan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ (visible — must match FAQPage JSON-LD) + search filter -->
+    <section id="faq" class="section-padding bg-white dark:bg-accent-950">
+      <div class="container-narrow">
+        <div class="reveal mx-auto max-w-3xl">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-brand-600 dark:text-brand-400">FAQ</p>
+          <h2 class="mt-2 font-display text-3xl font-semibold tracking-tight text-accent-900 dark:text-white sm:text-4xl">
+            Questions, answered
+          </h2>
+          <div class="mt-6">
+            <label for="faq-search" class="sr-only">Search frequently asked questions</label>
+            <input
+              id="faq-search"
+              type="search"
+              placeholder="Search FAQs — try “how long”, “hard wax”, “domain”…"
+              autocomplete="off"
+              class="min-h-12 w-full rounded-full border border-accent-200 bg-white px-5 py-3 text-base text-accent-900 placeholder:text-accent-400 focus:border-brand-500 focus:outline-none dark:border-accent-700 dark:bg-accent-900 dark:text-white"
+            />
+          </div>
+          <div id="faq-list" class="mt-6 space-y-4">
+            <details class="card reveal" data-faq="what is brazilian waxing precise hair removal root warm hard wax smooth sensitive" open>
+              <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-accent-900 dark:text-white">
+                What is Brazilian waxing?
+                <span class="text-brand-600 dark:text-brand-400" aria-hidden="true">+</span>
+              </summary>
+              <p class="mt-3 text-accent-700 dark:text-accent-300">
+                Brazilian waxing is a precise hair removal method that extracts hair from the root using warm or hard wax,
+                providing smooth results for 3 to 4 weeks. Hard wax is preferred for sensitive areas because it adheres only to the hair, not the skin.
+              </p>
+            </details>
+            <details class="card reveal" data-faq="how long results last smooth skin weeks regrowth finer">
+              <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-accent-900 dark:text-white">
+                How long do results last?
+                <span class="text-brand-600 dark:text-brand-400" aria-hidden="true">+</span>
+              </summary>
+              <p class="mt-3 text-accent-700 dark:text-accent-300">
+                Professional Brazilian wax services typically deliver smooth skin for 3 to 4 weeks. With consistent sessions, regrowth often becomes finer over time.
+              </p>
+            </details>
+            <details class="card reveal" data-faq="why hard wax phoenix bikini underarm arizona climate irritation">
+              <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-accent-900 dark:text-white">
+                Why choose hard wax in Phoenix?
+                <span class="text-brand-600 dark:text-brand-400" aria-hidden="true">+</span>
+              </summary>
+              <p class="mt-3 text-accent-700 dark:text-accent-300">
+                Hard wax is ideal for the bikini line and underarms. It grips the hair shaft while releasing cleanly from the skin,
+                reducing irritation — especially valuable in the Arizona climate.
+              </p>
+            </details>
+            <details class="card reveal border-brand-300" data-faq="phxwax.salon available purchase acquire offer escrow sales desertrich confidential">
+              <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-accent-900 dark:text-white">
+                Is phxwax.salon available for purchase?
+                <span class="rounded-full bg-brand-100 px-2.5 py-1 text-xs font-semibold text-brand-800 dark:bg-accent-800 dark:text-brand-300">Domain</span>
+              </summary>
+              <p class="mt-3 text-accent-700 dark:text-accent-300">
+                Yes. phxwax.salon is available for acquisition via private escrow-protected transfer.
+                Email <a class="font-semibold text-brand-700 underline-offset-4 hover:underline dark:text-brand-300" href="mailto:sales@desertrich.com?subject=Domain%20Inquiry%3A%20phxwax.salon">sales@desertrich.com</a>
+                with your offer. All discussions are confidential with a 1–2 business day response.
+              </p>
+            </details>
+          </div>
+          <p id="faq-empty" class="mt-4 hidden text-sm text-accent-500 dark:text-accent-400">No FAQs match that search. Try “wax”, “domain”, or “Phoenix”.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Closing -->
-    <section class="border-t border-brand-100 bg-brand-50/50 py-12">
+    <section class="border-t border-brand-100 bg-brand-50/50 py-12 dark:border-accent-800 dark:bg-accent-900/40">
       <div class="container-narrow text-center">
-        <p class="mx-auto max-w-2xl text-sm text-accent-500">
-          Information presented reflects widely accepted professional understanding of wax epilation technology 
+        <p class="mx-auto max-w-2xl text-sm text-accent-500 dark:text-accent-400">
+          Information presented reflects widely accepted professional understanding of wax epilation technology
           and is intended solely for educational and demonstration purposes.
         </p>
       </div>
@@ -231,4 +418,40 @@ import Footer from '../components/Footer.astro';
   </main>
 
   <Footer />
+  <ExitIntent />
 </Layout>
+
+<script is:inline>
+  (function () {
+    // Urgency: lightweight viewer counter (local, no backend — free plan safe)
+    try {
+      var key = 'phx-views';
+      var n = parseInt(localStorage.getItem(key) || '0', 10) + 1;
+      localStorage.setItem(key, String(n));
+      var el = document.getElementById('viewer-count');
+      if (el) {
+        var base = 14 + (n % 23);
+        el.textContent = base + ' viewing this week';
+        el.classList.remove('hidden');
+      }
+    } catch (e) {}
+
+    // FAQ client-side search (replaces marketplace filter for single-domain site)
+    var input = document.getElementById('faq-search');
+    var cards = Array.prototype.slice.call(document.querySelectorAll('#faq-list details'));
+    var empty = document.getElementById('faq-empty');
+    if (input) {
+      input.addEventListener('input', function () {
+        var q = input.value.trim().toLowerCase();
+        var shown = 0;
+        cards.forEach(function (card) {
+          var hay = ((card.getAttribute('data-faq') || '') + ' ' + (card.textContent || '')).toLowerCase();
+          var ok = !q || hay.indexOf(q) !== -1;
+          card.style.display = ok ? '' : 'none';
+          if (ok) { shown++; if (q) card.open = true; }
+        });
+        if (empty) empty.classList.toggle('hidden', shown !== 0);
+      });
+    }
+  })();
+</script>

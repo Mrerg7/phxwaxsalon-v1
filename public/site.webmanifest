@@ -1,0 +1,18 @@
+{
+  "name": "PHX Wax Salon — phxwax.salon",
+  "short_name": "PHX Wax",
+  "description": "Premium Brazilian wax in Phoenix. phxwax.salon domain available for acquisition.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fdf8f6",
+  "theme_color": "#b5624c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

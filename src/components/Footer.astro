@@ -1,59 +1,104 @@
 ---
 const currentYear = new Date().getFullYear();
+const offerHref =
+  'mailto:sales@desertrich.com?subject=' +
+  encodeURIComponent('Domain Offer: phxwax.salon') +
+  '&body=' +
+  encodeURIComponent('Hello,\n\nI would like to make an offer for phxwax.salon.\n\nOffer amount (USD): \nIntended use: \nTimeline: \n\nThank you.');
+const buyHref =
+  'mailto:sales@desertrich.com?subject=' +
+  encodeURIComponent('Buy Now Inquiry: phxwax.salon') +
+  '&body=' +
+  encodeURIComponent('Hello,\n\nI want to acquire phxwax.salon via escrow-protected transfer. Please send next steps.\n\nName: \nTimeline: ASAP\n\nThank you.');
 ---
 
 <footer id="acquisition" class="border-t border-brand-100 bg-accent-950 text-accent-100">
   <div class="border-b border-accent-800/60">
     <div class="container-narrow py-12 sm:py-16">
-      <div class="mx-auto max-w-3xl text-center">
-        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-brand-300">
+      <div class="reveal mx-auto max-w-3xl text-center">
+        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-4 py-2 text-xs font-medium uppercase tracking-wider text-brand-300">
           <span class="relative flex h-2 w-2">
             <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-75"></span>
             <span class="relative inline-flex h-2 w-2 rounded-full bg-brand-400"></span>
           </span>
-          Domain Available
+          Domain Available · escrow-protected
         </div>
         <h2 class="font-display text-2xl font-semibold tracking-tight text-white sm:text-3xl">
           Acquire <span class="text-brand-400">phxwax.salon</span>
         </h2>
         <p class="mt-4 text-base leading-relaxed text-accent-300 sm:text-lg">
-          Premium domain for a Phoenix Brazilian wax salon, spa, or beauty brand. 
-          Strong local intent + global edge delivery potential.
+          Premium domain for a Phoenix Brazilian wax salon, spa, or beauty brand.
+          Strong local intent + memorable, ad-ready branding.
         </p>
-        <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+
+        <!-- Price-tier CTAs: Make Offer / Buy Now / Contact Agent -->
+        <div class="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+          <a
+            href={buyHref}
+            data-cta="footer-buy-now"
+            class="group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-brand-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition-all duration-200 hover:bg-brand-400 hover:shadow-xl hover:shadow-brand-500/30 sm:w-auto"
+          >
+            Buy Now — Secure Transfer
+          </a>
+          <a
+            href={offerHref}
+            data-cta="footer-make-offer"
+            class="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-accent-600 bg-transparent px-8 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-accent-800 sm:w-auto"
+          >
+            Make an Offer
+          </a>
+        </div>
+        <div class="mt-4 flex flex-col items-center justify-center gap-2 text-sm sm:flex-row sm:gap-4">
           <a
             href="mailto:sales@desertrich.com?subject=Domain%20Inquiry%3A%20phxwax.salon"
-            class="group inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full bg-brand-500 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-500/25 transition-all duration-200 hover:bg-brand-400 hover:shadow-xl hover:shadow-brand-500/30 sm:w-auto"
+            data-cta="footer-contact-agent"
+            class="inline-flex min-h-12 items-center gap-2 rounded-full px-4 py-2 font-medium text-accent-200 underline-offset-4 hover:underline"
           >
-            <svg class="h-4 w-4 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
             sales@desertrich.com
           </a>
-          <span class="text-sm text-accent-400">Serious inquiries only</span>
+          <span class="text-xs text-accent-500">Serious inquiries only · confidential</span>
         </div>
-        <p class="mt-6 text-xs text-accent-500">
-          All acquisition discussions are confidential. Response within 1–2 business days.
+
+        <ul class="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-accent-400" aria-label="Buyer assurances">
+          <li>✓ Escrow.com-style protected transfer</li>
+          <li>✓ Same-week transfer plan</li>
+          <li>✓ Response in 1–2 business days</li>
+        </ul>
+        <p class="mt-4 text-xs text-accent-500">
+          All acquisition discussions are confidential. No brokers, no spam — direct seller contact.
         </p>
       </div>
     </div>
   </div>
 
   <div class="container-narrow py-8">
-    <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+    <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-accent-400" aria-label="Footer">
+      <a href="#about" class="inline-flex min-h-12 items-center hover:text-white">About</a>
+      <a href="#services" class="inline-flex min-h-12 items-center hover:text-white">Services</a>
+      <a href="#value" class="inline-flex min-h-12 items-center hover:text-white">Domain value</a>
+      <a href="#faq" class="inline-flex min-h-12 items-center hover:text-white">FAQ</a>
+      <a href="#acquisition" class="inline-flex min-h-12 items-center hover:text-white">Acquire</a>
+      <a href="/sitemap-index.xml" class="inline-flex min-h-12 items-center hover:text-white">Sitemap</a>
+      <a href="/robots.txt" class="inline-flex min-h-12 items-center hover:text-white">Robots</a>
+    </nav>
+
+    <div class="mt-6 flex flex-col items-center justify-between gap-6 sm:flex-row">
       <div class="flex items-center gap-3">
         <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600/20 text-brand-400">
-          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364 1.636l-1.591 1.591M21 12h-2.25m-1.636 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
           </svg>
         </div>
         <div>
           <p class="text-sm font-medium text-white">PHX Wax Salon</p>
-          <p class="text-xs text-accent-400">Informational platform</p>
+          <p class="text-xs text-accent-400">Informational platform · phxwax.salon for sale</p>
         </div>
       </div>
 
-      <div class="text-center text-xs leading-relaxed text-accent-500 sm:text-right max-w-md">
+      <div class="max-w-md text-center text-xs leading-relaxed text-accent-500 sm:text-right">
         <p>
           This website is for demonstration and informational purposes only. It does not constitute an offer of services,
           a commitment to deploy, or a guarantee of outcomes. All statistics, projections, and references to specific
