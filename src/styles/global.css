@@ -64,11 +64,18 @@
     @apply border-accent-800 bg-accent-900 shadow-none;
   }
 
-  /* Smooth scroll-triggered fade-ins (respects reduced motion) */
-  .reveal {
+  /* Scroll-triggered fade-ins. Hidden state applies ONLY when JS is
+     available (html.js set in <head>). No-JS / early-parse states always
+     show content — never leave the page blank below the hero. */
+  .js .reveal {
     opacity: 0;
     transform: translateY(14px);
     transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
   }
 
   .reveal.is-visible {

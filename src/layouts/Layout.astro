@@ -85,12 +85,20 @@ const dateModified = '2026-10-03';
     <!-- Prevent dark-mode FOUC (class strategy, localStorage, free-plan friendly) -->
     <script is:inline>
       try {
-        const t = localStorage.getItem('phx-theme');
+        document.documentElement.classList.add('js');
+        var t = localStorage.getItem('phx-theme');
         if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
           document.documentElement.classList.add('dark');
         }
-      } catch (e) {}
+      } catch (e) {
+        document.documentElement.classList.add('js');
+      }
     </script>
+    <noscript>
+      <style>
+        .reveal { opacity: 1 !important; transform: none !important; }
+      </style>
+    </noscript>
 
     <!-- Structured Data: Organization -->
     <script type="application/ld+json" set:html={JSON.stringify({
@@ -215,8 +223,48 @@ const dateModified = '2026-10-03';
     </a>
     <slot />
 
-    <!-- Cloudflare Web Analytics (free plan): paste token below to activate, no build change needed -->
-    <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "REPLACE_WITH_TOKEN"}'></script> -->
+    <script is:inline data-phx-reveal>
+      // Scroll-triggered fade-ins. Runs after <slot /> so ALL page content
+      // is parsed (header-only scripts run too early and see an empty DOM).
+      (function () {
+        function init() {
+          var els = document.querySelectorAll('.reveal');
+          if (!els.length) return;
+          if (!('IntersectionObserver' in window)) {
+            els.forEach(function (el) { el.classList.add('is-visible'); });
+            return;
+          }
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+              if (en.isIntersecting) {
+                en.target.classList.add('is-visible');
+                io.unobserve(en.target);
+              }
+            });
+          }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+          els.forEach(function (el) {
+            // Already in view on load (e.g. hero pill) → show immediately
+            var r = el.getBoundingClientRect();
+            if (r.top < window.innerHeight && r.bottom > 0) {
+              el.classList.add('is-visible');
+            } else {
+              io.observe(el);
+            }
+          });
+          // Safety net: never leave content invisible (JS edge cases)
+          setTimeout(function () {
+            document.querySelectorAll('.reveal:not(.is-visible)').forEach(function (el) {
+              el.classList.add('is-visible');
+            });
+          }, 2500);
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
     <script is:inline data-cf-conversion>
       // Lightweight conversion tracking hook (free-plan friendly, no PII).
       // Emits CustomEvent('phx_cta', {detail:{cta}}) consumed by analytics if present.
